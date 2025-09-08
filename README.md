@@ -50,10 +50,15 @@ OrderPricing/
 │       ├── OrderService.cs          # 訂單服務
 │       ├── IDiscountRule.cs         # 折扣規則介面
 │       ├── ThresholdDiscountRule.cs # 門檻折扣規則
-│       └── BuyOneGetOneRule.cs      # 買一送一規則
+│       ├── BuyOneGetOneRule.cs      # 買一送一規則
+│       └── BulkDiscountRule.cs      # 量販折扣規則
 └── tests/OrderPricing.Specs/        # BDD 測試套件
-    ├── Features/order.feature       # BDD 驗收條件
-    └── StepDefinitions/OrderSteps.cs # 測試步驟定義
+    ├── Features/
+    │   ├── order.feature            # BDD 驗收條件 (基本功能)
+    │   └── bulk_discount.feature    # BDD 驗收條件 (量販折扣)
+    └── StepDefinitions/
+        ├── OrderSteps.cs            # 基本測試步驟定義
+        └── BulkDiscountSteps.cs     # 量販折扣測試步驟定義
 ```
 
 ## ✨ 核心功能
@@ -71,12 +76,18 @@ OrderPricing/
 - 買 n 個送 max(1, floor(n/2)) 個
 - 支援多種商品和同商品組合
 
-### 4. 多重優惠疊加
+### 4. 量販折扣優惠 **[🆕 新增]**
+- 同一種商品每買 10 件享有 20% 折扣
+- 支援多組折扣計算（如 27 件 = 2 組折扣 + 7 件原價）
+- 不同商品各自計算，無法合併折扣組數
+
+### 5. 多重優惠疊加
 - 門檻折扣 + 買一送一同時適用
 - 優惠計算順序：買一送一影響數量，門檻折扣影響價格
 
 ## 🧪 BDD 驗收場景
 
+### 基本功能測試 (order.feature)
 | 場景 | 描述 | 狀態 |
 |------|------|------|
 | Scenario 1 | 單一商品無優惠 | ✅ 通過 |
@@ -86,7 +97,16 @@ OrderPricing/
 | Scenario 5 | 混合類別商品 | ✅ 通過 |
 | Scenario 6 | 多重優惠疊加 | ✅ 通過 |
 
-**測試覆蓋率**: 6/6 scenarios ✅ (100% 通過)
+### 量販折扣測試 (bulk_discount.feature) **[🆕 新增]**
+| 場景 | 描述 | 狀態 |
+|------|------|------|
+| Scenario 1 | 購買 12 件同種商品 (部分量販折扣) | ✅ 通過 |
+| Scenario 2 | 購買 27 件同種商品 (多組量販折扣) | ✅ 通過 |
+| Scenario 3 | 購買 10 種不同商品 (無量販折扣) | ✅ 通過 |
+| Scenario 4 | 購買恰好 10 件同種商品 (完整量販折扣) | ✅ 通過 |
+| Scenario 5 | 混合商品購買 (部分商品量販折扣) | ✅ 通過 |
+
+**測試覆蓋率**: 11/11 scenarios ✅ (100% 通過)
 
 ## 🔧 技術特點
 
@@ -130,8 +150,8 @@ OrderPricing/
 
 4. **查看測試報告**
    ```
-   Passed: 6, Failed: 0, Skipped: 0
-   ✅ 所有 BDD 場景測試通過
+   Passed: 11, Failed: 0, Skipped: 0
+   ✅ 所有 BDD 場景測試通過 (包含新增的量販折扣功能)
    ```
 
 ## 📋 開發流程
@@ -159,9 +179,10 @@ OrderPricing/
 - ✅ 開放封閉原則重構
 
 ### .NET 技術
-- ✅ .NET 9 現代化語法
+- ✅ .NET 9 現代化語法 (Primary Constructor)
 - ✅ SpecFlow BDD 整合
 - ✅ 專案架構組織
+- ✅ ScenarioContext 資源共享管理
 
 ---
 

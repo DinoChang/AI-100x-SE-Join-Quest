@@ -29,6 +29,18 @@ public class OrderService
             _discountRules.Add(new BuyOneGetOneRule("cosmetics"));
         }
     }
+
+    public void SetBulkDiscount(int minimumQuantity, decimal discountPercentage)
+    {
+        // 移除舊的量販折扣規則
+        _discountRules.RemoveAll(rule => rule is BulkDiscountRule);
+        
+        // 加入新的量販折扣規則
+        if (minimumQuantity > 0 && discountPercentage > 0)
+        {
+            _discountRules.Add(new BulkDiscountRule(minimumQuantity, discountPercentage));
+        }
+    }
     
     public Order Checkout(List<OrderItem> items)
     {

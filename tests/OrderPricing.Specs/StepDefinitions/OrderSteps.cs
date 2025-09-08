@@ -8,12 +8,27 @@ namespace OrderPricing.Specs.StepDefinitions;
 [Binding]
 public class OrderSteps
 {
-    private readonly OrderService _orderService = new();
+    private readonly ScenarioContext _scenarioContext;
     private readonly List<OrderItem> _orderItems = [];
     private Order _resultOrder = new();
     private decimal _thresholdAmount;
     private decimal _thresholdDiscount;
     private bool _buyOneGetOneActive;
+
+    public OrderSteps(ScenarioContext scenarioContext)
+    {
+        _scenarioContext = scenarioContext;
+    }
+
+    private OrderService GetOrderService()
+    {
+        // 如果 ScenarioContext 中沒有 OrderService，則創建一個新的
+        if (!_scenarioContext.ContainsKey("OrderService"))
+        {
+            _scenarioContext["OrderService"] = new OrderService();
+        }
+        return (OrderService)_scenarioContext["OrderService"];
+    }
 
     [Given(@"no promotions are applied")]
     public static void GivenNoPromotionsAreApplied()
@@ -27,14 +42,14 @@ public class OrderSteps
         var row = table.Rows[0];
         _thresholdAmount = decimal.Parse(row["threshold"]);
         _thresholdDiscount = decimal.Parse(row["discount"]);
-        _orderService.SetThresholdDiscount(_thresholdAmount, _thresholdDiscount);
+        GetOrderService().SetThresholdDiscount(_thresholdAmount, _thresholdDiscount);
     }
 
     [Given(@"the buy one get one promotion for cosmetics is active")]
     public void GivenTheBuyOneGetOnePromotionForCosmeticsIsActive()
     {
         _buyOneGetOneActive = true;
-        _orderService.SetBuyOneGetOnePromotion(_buyOneGetOneActive);
+        GetOrderService().SetBuyOneGetOnePromotion(_buyOneGetOneActive);
     }
 
     [When(@"a customer places an order with:")]
@@ -58,7 +73,7 @@ public class OrderSteps
             _orderItems.Add(orderItem);
         }
 
-        _resultOrder = _orderService.Checkout(_orderItems);
+        _resultOrder = GetOrderService().Checkout(_orderItems);
     }
 
     [Then(@"the order summary should be:")]
