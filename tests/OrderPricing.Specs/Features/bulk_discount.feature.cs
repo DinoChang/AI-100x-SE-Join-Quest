@@ -20,13 +20,15 @@ namespace OrderPricing.Specs.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Xunit.TraitAttribute("Category", "bulk_discount")]
+    [Xunit.TraitAttribute("Category", "order_pricing")]
     public partial class BulkDiscountPromotionFeature : object, Xunit.IClassFixture<BulkDiscountPromotionFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
         private static string[] featureTags = new string[] {
-                "bulk_discount"};
+                "bulk_discount",
+                "order_pricing"};
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         

@@ -154,6 +154,18 @@ OrderPricing/
    ✅ 所有 BDD 場景測試通過 (包含新增的量販折扣功能)
    ```
 
+5. **查看 ExtentReports 測試報告**
+   ```bash
+   # 測試報告會自動生成在 TestResults 目錄
+   open tests/OrderPricing.Specs/TestResults/Latest_ExtentReport.html
+   ```
+   
+   報告包含：
+   - Features 功能總覽
+   - Tags 標籤分類 (@order_pricing, @bulk_discount)
+   - Steps 詳細步驟記錄
+   - 測試統計和執行時間
+
 ## 📋 開發流程
 
 ### BDD 循環實作
@@ -183,6 +195,15 @@ OrderPricing/
 - ✅ SpecFlow BDD 整合
 - ✅ 專案架構組織
 - ✅ ScenarioContext 資源共享管理
+- ✅ ExtentReports 測試報告整合
+
+### 測試報告
+- ✅ ExtentReports HTML 報告生成
+- ✅ Cucumber 風格的測試結果展示
+- ✅ Features、Tags、Steps 詳細分類
+- ✅ 深色主題和現代化介面
+- ✅ 解決平行測試執行的顯示問題
+- ✅ 使用 ConcurrentDictionary 確保執行緒安全
 
 ---
 

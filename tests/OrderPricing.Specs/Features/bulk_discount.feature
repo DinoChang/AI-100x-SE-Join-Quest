@@ -1,4 +1,4 @@
-@bulk_discount
+@bulk_discount @order_pricing
 Feature: Bulk Discount Promotion
   As a shopper
   I want to receive a 20% discount when purchasing 10 or more of the same product
