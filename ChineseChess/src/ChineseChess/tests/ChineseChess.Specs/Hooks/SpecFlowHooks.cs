@@ -1,14 +1,14 @@
 using TechTalk.SpecFlow;
 
-namespace OrderPricing.Specs.Hooks;
+namespace ChineseChess.Specs.Hooks;
 
 [Binding]
-public sealed class ExtentReportHooks
+public sealed class SpecFlowHooks
 {
     private readonly ScenarioContext _scenarioContext;
     private readonly FeatureContext _featureContext;
 
-    public ExtentReportHooks(ScenarioContext scenarioContext, FeatureContext featureContext)
+    public SpecFlowHooks(ScenarioContext scenarioContext, FeatureContext featureContext)
     {
         _scenarioContext = scenarioContext;
         _featureContext = featureContext;
@@ -17,7 +17,7 @@ public sealed class ExtentReportHooks
     [BeforeTestRun]
     public static void BeforeTestRun()
     {
-        Console.WriteLine("SpecFlow BeforeTestRun (no ExtentReports)");
+        Console.WriteLine("SpecFlow BeforeTestRun");
     }
 
     [BeforeFeature]
@@ -56,6 +56,6 @@ public sealed class ExtentReportHooks
     [AfterTestRun]
     public static void AfterTestRun()
     {
-        Console.WriteLine("SpecFlow AfterTestRun (no ExtentReports)");
+        Console.WriteLine("SpecFlow AfterTestRun");
     }
 }

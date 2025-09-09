@@ -124,7 +124,7 @@ Passed!  - Failed: 0, Passed: 22, Skipped: 0, Total: 22
 - **語言**: C# 9.0
 - **框架**: .NET 9.0
 - **測試**: SpecFlow + xUnit
-- **報告**: ExtentReports
+**報告**: SpecFlow LivingDoc (已由 ExtentReports 遷移)
 - **架構**: 物件導向 + 繼承
 
 ---
